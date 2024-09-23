@@ -1,0 +1,296 @@
+scx (1.0.4.1-1ubuntu1) noble; urgency=medium
+
+  * Miscellaneous Ubuntu changes:
+    - Rebase on top of the latest upstream main branch
+
+ -- Mitchell Augustin <mitchell.augustin@canonical.com>  Mon, 23 Sep 2024 11:02:00 -0500
+
+scx (0.1.7.4-1ubuntu1) noble; urgency=medium
+
+  * Miscellaneous Ubuntu changes:
+    - debian: disable libbpf during build
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Wed, 06 Mar 2024 10:37:31 +0100
+
+scx (0.1.7.3-1ubuntu1) noble; urgency=medium
+
+  * Miscellaneous Ubuntu changes:
+    - debian: add jq to the build dependencies
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Wed, 06 Mar 2024 10:18:11 +0100
+
+scx (0.1.7.2-1ubuntu1) noble; urgency=medium
+
+  * Miscellaneous Ubuntu changes:
+    - debian: update linux dependency
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Wed, 06 Mar 2024 09:51:23 +0100
+
+scx (0.1.7.1-1ubuntu1) noble; urgency=medium
+
+  * Miscellaneous Ubuntu changes:
+    - debian: disable building libbpf
+    - Libbpf - add BUILD_STATIC_ONLY flag
+    - Always build libbpf as a PIE
+    - scx_rlfifo: print a performance warning banner
+    - scx_rlfifo: replace 1ms sleep with sched_yield()
+    - meson-scripts/build_libbpf: Accommodate meson setting CC to "ccache $COMPILER"
+    - scx_rustland_core: provide DispatchedTask API methods
+    - scx_rustland_core: introduce per-task time slice
+    - Add libbpf as a submodule
+    - Revert "Merge pull request #165 from sched-ext/reduce-rust-build-load"
+    - Revert "Merge pull request #163 from jordalgo/libbpf-submodule"
+    - Add libbpf as a submodule
+    - build: limit the maximum amount of parallel cargo build
+    - scx: update /etc/default/scx
+    - scx_rustland_core: generate source files in-tree
+    - scx_utils: introduce Builder()
+    - scx_rustland_core: introduce RustLandBuilder()
+    - scx_rustland_core: introduce method bpf.update_tasks()
+    - scx_rlfifo: simple user-space FIFO scheduler written in Rust
+    - scx_rustland: update documentation
+    - scx_rustland_core: include scx_rustland backend
+    - rust: introduce scx_rustland_core crate
+    - rusty: Use new infeasible crate
+    - infeasible: Add a new infeasible crate for load balancing
+    - Gate cargo build options behind 'enable_rust'
+    - ci: eclude scx_qmap and scx_userland from testing
+    - sync-to-kernel.sh: Sync scx_central and scx_flatcg
+    - common: Cosmetic change for consistency
+    - scheds/sync-to-kernel.sh: Warn and skip if destination file is missing instead of failing
+    - rustland: Update rustland to use topology.rs
+    - topology: Add maps to cores and cpus from root Topology object
+    - rusty: Use new topology crate
+    - topology: Add new topology crate
+    - topology: Refactor topology.rs to use cpumask crate
+    - cpumask: Add new Cpumask crate
+    - scx_layered: Add MATCH_NICE_EQUALS match kind
+    - layered: Don't refresh cpumasks before attaching
+    - Revert "layered: Set layered cpumask in scheduler init call"
+    - layered: Consume from layer with cpumask in layered_dispatch
+    - layered: Set layered cpumask in scheduler init call
+    - layered: Initialize layers before attaching scheduler
+    - scx: Demote panic! to warn! in topology crate
+    - scx_rustland: introduce --builtin-idle
+    - scx_rustland: simply CPU selection by relying on built-in idle selection
+    - scx_rustland: introduce --full-user
+    - Add libbpf logging to the rust schedulers
+    - add documentation
+    - rust: Add topology module to utils crate
+    - scx_rustland: prevent misaligned pointer dereference
+    - scx_rustland: use a ring buffer for queued tasks
+    - scx_rustland: avoid memory copies while accessing cpu_map
+    - README: drop reference to old ABI /sys/kernel/debug/sched/ext
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Wed, 06 Mar 2024 07:46:25 +0100
+
+scx (0.1.7-1ubuntu1) noble; urgency=medium
+
+  * New upstream version 0.1.7:
+    - Bump to 0.1.7
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Tue, 13 Feb 2024 16:00:44 +0100
+
+scx (0.1.6.1-1ubuntu2) noble; urgency=medium
+
+  * Miscellaneous Ubuntu changes:
+    - drop postinst script
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Mon, 12 Feb 2024 07:38:23 +0100
+
+scx (0.1.6.1-1ubuntu1) noble; urgency=medium
+
+  * Miscellaneous Ubuntu changes:
+    - scx_utils: use c_char to prevent build failures
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Sun, 11 Feb 2024 20:35:50 +0100
+
+scx (0.1.6-2ubuntu1) noble; urgency=medium
+
+  * Resync with the latest upstream branch:
+    - scx_rustland: replace custom allocator with buddy-alloc
+    - scx_rustland: speed up search by PID in tasks BTreeSet
+    - scx_rustland: per-task cpumask generation counter
+    - scx: Implement solution to infeasible weights problem
+    - scx_rustland: keep default CPU selection when idle
+    - scx_rustland: kick user-space scheduler when a CPU is released
+    - scx_rustland: use scx_bpf_dispatch_cancel()
+    - scx_rustland: dump scheduler statistics before exiting
+    - scx_rusty: Fix typos
+    - scx: Add compat support for SCX_KICK_IDLE and use it for idle CPU wakeups
+    - scx: Update vmlinux.h to receive SCX_KICK_IDLE
+    - ci: detect errors only from stderr
+    - scx_userland: Increase scx_userland timeout
+    - ci: Only do CI runs for pull requests
+    - scx_userland: Print warning about poor performance
+    - Add linux-sched-ext to CachyOS repo
+    - common.bpf.h: Add kfunc prototype for scx_bpf_dispatch_cancel()
+    - scx_rustland: prevent duplicate PIDs in the task BTreeSet
+    - Include libbpf_h path in c sched compilation
+    - scheds/sync-to-kernel.sh: Drop most schedulers from sync
+    - docs: Update OVERVIEW to match latest APIs
+    - scx_rustland: more aggressive time slice scaling
+    - scx_rustland: enhance interactive task classification
+    - scx_rustland: rely on the built-in idle selection logic
+    - scx_rustland: usersched: code refactoring
+    - scx_rustland: BPF: refine CPU dispatch logic
+    - scx_rustland: re-introduce per-CPU DSQ + a global shared DSQ
+    - scx_rustland: BPF: small refactoring
+    - scx_rustland: Use scx_utils::user_exit_info
+    - scx_rusty: Use scx_utils::user_exit_info
+    - scx_layered: Use scx_utils::user_exit_info
+    - rust/scx_utils: Add user_exit_info support
+    - scx: Clean up user_exit_info.h
+    - scx_layered: dispatch from select_cpu if possible
+    - [scx_layered] downgrade prometheus-client
+    - Add BREAKING_CHANGES.md
+    - scx_layered: Grab idle_smtmask a bit later
+    - scx_layered: Remove unnecessary idle_cpumask
+    - Make meson.build more readable
+    - Update README.md
+    - systemd-services: add one service for all schedulers and config file
+    - systemd-services: setting conflict between schedulers
+    - scx_layered: Fix AFFN_VIOL stat bump
+    - ci: print the latest commit of the checked out sched-ext kernel
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Sun, 11 Feb 2024 19:22:53 +0100
+
+scx (0.1.6-1ubuntu1) noble; urgency=medium
+
+  * New upstream version 0.1.6:
+    - scx_rustland: small updates by @arighi in #77
+    - ci: temporarily switch to ppa:arighi/sched-ext-unstable by @arighi in #78
+    - scx_rustland: time slice boost by @arighi in #81
+    - scx_flatcg: introduce CGROUP_MAX_RETRIES by @arighi in #80
+    - scx_flatcg: Fix fallout from direct dispatch API update by @htejun in #82
+    - scx_rustland: Update README.md by @htejun in #83
+    - Update README.md to include terraria video by @htejun in #84
+    - scx_rustland: voluntary context switch boost by @arighi in #85
+    - scx_rustland: remove obsolete TODO note by @arighi in #86
+    - scx_userland: use a custom memory allocator to prevent page faults by @arighi in #87
+    - scx_rustland: introduce SMT support by @arighi in #90
+    - Add systemd services for scx schedulers by @sirlucjan in #88
+    - scx_rustland: introduce dynamic slice boost by @arighi in #91
+    - scx_nest: Set timer callback after cancelling by @Decave in #92
+    - scx-rustland: SMT improvements by @arighi in #94
+    - Set log size to 10M by @sirlucjan in #93
+    - ci: test the shedulers with the latest sched-ext kernel by @arighi in #95
+    - Set the correct value for sched-ext journald namespace by @sirlucjan in #97
+    - Update descriptions in cargo toml files by @jordalgo in #98
+    - scx_rustland: fixes to improve scheduler stability by @arighi in #99
+    - Add README.md for systemd services by @sirlucjan in #100
+    - systemd-services: replace ConditionPathExists with ConditionPathIsDirectory by @sirlucjan in #102
+    - Update vmlinux.h by @dschatzberg in #103
+    - user_exit_info: Print out debug dump if available by @htejun in #104
+    - scx_layered: Add support for OpenMetrics format by @dschatzberg in #101
+
+  * Miscellaneous Ubuntu changes:
+   - debian: disable systemd services by default
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Fri, 26 Jan 2024 17:49:30 +0100
+
+scx (0.1.5-1ubuntu1) noble; urgency=medium
+
+  * New upstream version 0.1.5:
+    - scx_rustland: add documentation to scheds/rust/README.md by @arighi in #55
+    - scx_rustland: reduce scheduler overhead by @arighi in #56
+    - scx_rustland: improve scheduler cpu selection by @arighi in #57
+    - scx_rustland: prevent dispatching multiple tasks on the same idle cpu by @arighi in #58
+    - scx_rustland: lowlatency improvements by @arighi in #59
+    - scx_rustland: prevent starvation and improve responsiveness by @arighi in #60
+    - scx_rustland: notify user-space scheduler about exiting tasks by @arighi in #61
+    - test the schedulers in the github workflow using virtme-ng by @arighi in #51
+    - scheds: c: improve build portability by @arighi in #62
+    - Userland scheduler updates by @Decave in #63
+    - scx_rustland: improve interactive workloads by @arighi in #64
+    - Add new archs for bpf_builder by @jordalgo in #65
+    - Improve scx_rustland reliability by @arighi in #66
+    - Add README files for each rust scheduler by @jordalgo in #67
+    - scx_rustland: refactoring by @arighi in #68
+    - bump scx_rusty and scx_layered by @jordalgo in #71
+    - scx_rustland: enhancements by @arighi in #72
+    - scx_rustland: dynamic time slice by @arighi in #73
+    - scx_rustland: multicore fixes by @arighi in #74
+    - scx: Build fix after kernel update by @htejun in #75
+    - Bump versions by @htejun in #76
+
+  * Miscellaneous Ubuntu changes:
+   - scx_rustland: report user-space scheduler page fault counter
+   - scx_userland: use a custom memory allocator to prevent page faults
+   - scx_rustland: remove obsolete TODO note
+   - scx_rustland: add a troubleshooting section
+   - scx_rustland: voluntary context switch boost
+   - scx_rustland: expose voluntary context switches to the scheduler
+   - Update README.md to include terraria video
+   - Update README.md
+   - scx_flatcg: Fix fallout from direct dispatch API update
+   - scx_flatcg: Report pick_next_cgroup() race and fail counts
+   - scx_flatcg: introduce CGROUP_MAX_RETRIES
+   - scx_rustland: introduce time slice boost parameter
+   - scx_rustland: avoid using SCX_ENQ_PREEMPT
+   - ci: temporarily switch to ppa:arighi/sched-ext-unstable
+   - scx_rustland: improve dynamic slice scaling
+   - scx_rustland: get rid of force_local
+   - scx_rustland: add a link to the live demo in the README
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Tue, 09 Jan 2024 19:00:27 +0100
+
+scx (0.1.4-1ubuntu1) noble; urgency=medium
+
+  * New upstream version 0.1.4:
+    - scx_rustland improvements by @arighi in #47
+    - scx_rustland: clarify and improve BPF / userspace interlocking by @arighi in #48
+    - scx_rustland: introduce update_idle callback by @arighi in #52
+    - Downgrade bindgen to 0.68 by @jordalgo in #50
+    - Suppress the deprecation warning from bindgen and bump versions by @htejun in #53
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Fri, 29 Dec 2023 08:56:36 +0100
+
+scx (0.1.3-1ubuntu1) noble; urgency=medium
+
+  * New upstream version 0.1.3:
+    - scx_userland: allocate tasks array based on kernel.pid_max by @arighi in #29
+    - make scx_userland more robust by @arighi in #30
+    - minor refactor of scx_rusty by @jordalgo in #31
+    - scx_utils: Update libbpf-cargo to 0.22 by @danielocfb in #32
+    - Revert "scx_utils: Update libbpf-cargo to 0.22" by @htejun in #35
+    - Update meson install in readme by @jordalgo in #34
+    - rust: Update libbpf-rs & libbpf-cargo to 0.22 by @danielocfb in #36
+    - Restructure scheds folder names by @jordalgo in #37
+    - Fix some things in Nest by @Decave in #39
+    - scx: Add CI action that builds schedulers for PRs by @Decave in #40
+    - Update README for additional resources (blog posts and articles) by @multics69 in #41
+    - ci: Run CI job on Ubuntu 22.04 by @Decave in #43
+    - scx_rustlite: simple vtime-based scheduler written in Rust by @arighi in #38
+    - scx_rustland: rename from scx_rustlite by @arighi in #44
+
+  * Miscellaneous Ubuntu changes:
+    - deb: run clean before adding cargo dependencies
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Fri, 22 Dec 2023 08:17:30 +0100
+
+scx (0.1.2-1ubuntu1) noble; urgency=medium
+
+  * New upstream version 0.1.2:
+    - Update readme with alt meson install instructions by @jordalgo in #16
+    - Support offline compilation by @htejun in #17
+    - scx_nest: Reset schedulings when a task is dispatched by @Decave in #18
+    - build scx on 32-bit architectures by @arighi in #21
+    - scx_rusty: fix "subtract with overflow" error by @arighi in #20
+    - build: introduce enable_rust build option by @arighi in #22
+    - build: add Debian arch name mapping for s390 by @arighi in #23
+    - README: Add ubuntu instructions by @htejun in #24
+    - Update README for ubuntu instructions by @jordalgo in #25
+    - scx_central: Break dispatch_to_cpu loop when running out of buffer slots
+      by @kkdwivedi in #26
+    - rust: clarify license and include text by @davide125 in #27
+    - Bump versions and add LICENSE symlinks for scx_layered and scx_rusty by
+      @htejun in #28
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Wed, 13 Dec 2023 07:36:50 +0100
+
+scx (0.1.1-1ubuntu1) noble; urgency=medium
+
+  * Initial packaging.
+
+ -- Andrea Righi <andrea.righi@canonical.com>  Fri, 08 Dec 2023 08:24:12 +0000

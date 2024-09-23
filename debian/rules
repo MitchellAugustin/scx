@@ -1,0 +1,43 @@
+#!/usr/bin/make -f
+
+ARCH := $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+
+# Detect the latest bpftool installed
+BPFTOOL := $(shell ls -c1 /usr/lib/linux-*tools*/bpftool 2>/dev/null | sort -n | tail -1)
+
+ifeq ($(ARCH),armhf)
+MESON_EXTRA_OPTS := -Denable_rust=false
+else ifeq ($(ARCH),s390x)
+MESON_EXTRA_OPTS := -Denable_rust=false
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	mkdir -p debian/build
+	#cd debian/build && ln -s ../../build/libbpf libbpf
+	#cd debian/build && ln -s ../../build/bpftool bpftool
+	#cd debian/build/libbpf && mkdir -p src/usr/include
+	meson setup debian/build \
+		--prefix=/usr \
+		--datadir=$(CURDIR)/debian/scx/usr \
+		-Dcargo_home=$(CURDIR)/cargo-deps \
+		-Doffline=true -Dbuildtype=release $(MESON_EXTRA_OPTS)
+
+override_dh_auto_build:
+	meson compile -j1 -C debian/build
+
+override_dh_auto_test:
+	dh_auto_test
+
+override_dh_auto_install:
+	meson install -C debian/build --destdir $(CURDIR)/debian/scx
+
+override_dh_install:
+	# Install all binaries to /usr/sbin
+	mkdir -p $(CURDIR)/debian/scx/usr/sbin/
+	mv $(CURDIR)/debian/scx/usr/bin/* $(CURDIR)/debian/scx/usr/sbin/
+
+override_dh_clean:
+	dh_clean
