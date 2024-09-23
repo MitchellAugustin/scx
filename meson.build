@@ -276,9 +276,9 @@ if get_option('buildtype') == 'release' or get_option('buildtype') == 'plain'
   cargo_build_args += '--release'
 endif
 
-if get_option('offline')
-  cargo_build_args += '--offline'
-endif
+#if get_option('offline')
+#  cargo_build_args += '--offline'
+#endif
 
 if get_option('kernel') != ''
   kernel = get_option('kernel')
